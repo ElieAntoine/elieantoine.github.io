@@ -1,0 +1,129 @@
+/* Colours as tokens so the dark variant below only has to restate these six.
+   Delete that @media block and nothing else changes. */
+:root {
+  --bg: #fdfdfc;
+  --text: #1f2328;
+  --muted: #5d6570;
+  --link: #0b5cad;
+  --rule: #e4e4e1;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #16171a;
+    --text: #e6e6e6;
+    --muted: #9aa0a8;
+    --link: #79b5ef;
+    --rule: #2e3035;
+  }
+}
+
+/* One column, capped near the al-folio width so the page reads wide on a laptop.
+   The margin is a clamp rather than a fixed value: it collapses to 1rem on a phone
+   and opens to 2.5rem on a desktop, so the same rule covers both without a breakpoint. */
+body {
+  max-width: 54rem;
+  margin: 0 auto;
+  padding: clamp(2rem, 6vw, 3.5rem) clamp(1rem, 4vw, 2.5rem) 4rem;
+  background: var(--bg);
+  color: var(--text);
+  /* Serif, for a warmer page than a system sans gives. Revert by swapping the stack for
+     system-ui, -apple-system, "Segoe UI", Roboto, sans-serif. The list runs from the
+     nicest text serifs down to what Ubuntu actually ships, so it degrades rather than
+     falling all the way to Times. Serifs read small at a given size, hence the bump. */
+  font: 400 clamp(1.05rem, 1rem + 0.25vw, 1.2rem)/1.7
+        Charter, "Bitstream Charter", "Iowan Old Style", "Sitka Text", Cambria, Georgia,
+        "Noto Serif", "Liberation Serif", serif;
+}
+
+a { color: var(--link); }
+a:hover { text-decoration: none; }
+
+h1 {
+  margin: 0;
+  font-size: clamp(2rem, 1.6rem + 2vw, 2.75rem);
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+
+/* Sections are separated by a rule rather than by whitespace alone, which is what
+   keeps publications and teaching from reading as one long list. */
+h2 {
+  margin: 3rem 0 1.25rem;
+  padding-top: 1.75rem;
+  border-top: 1px solid var(--rule);
+  font-size: 1.4rem;
+  letter-spacing: -0.01em;
+}
+
+h3 {
+  margin: 1.75rem 0 0.6rem;
+  font-size: 0.95rem;
+  color: var(--muted);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.subtitle {
+  margin: 0.5rem 0 2.25rem;
+  color: var(--muted);
+  font-size: 1.1rem;
+}
+
+ul { padding-left: 1.2rem; }
+li { margin-bottom: 0.4rem; }
+
+/* Publications drop the bullet and stack their three parts, so the title reads first
+   and the author list does not wrap into the venue. */
+.pubs {
+  list-style: none;
+  padding-left: 0;
+}
+
+.pubs li { margin-bottom: 1.25rem; }
+
+.pubs .title {
+  display: block;
+  font-weight: 600;
+}
+
+.pubs .authors,
+.pubs .venue {
+  display: block;
+  font-size: 0.9em;
+  color: var(--muted);
+}
+
+/* Icons sit on a wrapping flex row so six of them fit a phone without overflowing.
+   Sizing in em ties them to the body scale set above rather than to a fixed pixel value. */
+.socials {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  list-style: none;
+  padding-left: 0;
+  margin-top: 1.25rem;
+}
+
+.socials li { margin-bottom: 0; }
+
+.socials a {
+  display: block;
+  color: var(--muted);
+}
+
+.socials a:hover { color: var(--link); }
+
+.socials svg {
+  width: 1.5em;
+  height: 1.5em;
+  display: block;
+}
+
+footer {
+  margin-top: 3.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--rule);
+  color: var(--muted);
+  font-size: 0.9rem;
+}
